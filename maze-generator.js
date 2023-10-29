@@ -14,6 +14,8 @@ function createBlankMaze() {
     const mazeArray = table;
     
     const maze = document.getElementById("maze_container")
+    const mouse = document.getElementById("mouse")
+    const cheese = document.getElementById("cheese")
 
     for (let rowIndex = 0; rowIndex < mazeArray.length; rowIndex++) {
         let row = document.createElement("div")

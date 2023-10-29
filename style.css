@@ -23,6 +23,27 @@ body {
     height: max-content;
     display: flex;
     flex-direction: column;
+    position: relative;
+}
+
+#mouse, #cheese {
+    width: 40px;
+    height: auto;
+    position: absolute;
+}
+
+#mouse {
+    top: 0;
+    left: 0;
+}
+
+#cheese {
+    bottom: 0;
+    right: 0;
+}
+
+select {
+    margin-bottom: 20px;
 }
 
 .row {
