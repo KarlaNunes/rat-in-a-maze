@@ -3,8 +3,8 @@ document.addEventListener("DOMContentLoaded", function() {
     generateAnExit();
 });
 
-mazeWidth = 10;
-mazeHeight = 10;
+const mazeWidth = 10;
+const mazeHeight = 10;
 
 function createBlankMaze() {
 
@@ -59,7 +59,12 @@ function generateAnExit() {
     let rowIndex = 1;
     let colIndex = 1;
 
-    const exits = ["right", "right", "right", "right", "right", "right", "right", "right", "right", "bottom", "bottom", "bottom", "bottom", "bottom", "bottom", "bottom", "bottom", "bottom"];
+    const exits = [];
+
+    for (let exit = 1; exit < mazeWidth - 1; exit++) {
+        exits.push("right");
+        exits.push("bottom");
+    }
 
     for (exitIndex = 0; exitIndex < exits.length; exitIndex++) {
 
