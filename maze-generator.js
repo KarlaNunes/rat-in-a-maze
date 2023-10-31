@@ -4,18 +4,53 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 function createBlankMaze() {
-    const table = [
+    const table1 = [
         [0,1,0,1],
         [0,0,0,0],
         [0,1,0,1],
         [0,1,0,0],
     ]
 
-    const mazeArray = table;
+    const table2 = [
+        [0,0,0,1, 0, 1],
+        [0,1,0,0, 0, 0],
+        [1,1,0,1, 1, 1],
+        [0,1,0,0, 0, 0],
+        [0,1,0,1, 0, 1],
+        [0,0,0,1, 0, 0],
+    ]
+
+    const table3 = [
+        [0, 1, 0, 0, 1, 1, 1, 0, 0, 0],
+        [0, 1, 1, 0, 1, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 1, 1, 1, 1, 1, 0],
+        [0, 1, 1, 1, 1, 0, 0, 0, 0, 0],
+        [0, 1, 0, 0, 0, 0, 1, 0, 1, 0],
+        [0, 1, 0, 1, 1, 1, 1, 0, 1, 1],
+        [0, 0, 0, 1, 0, 1, 0, 0, 1, 0],
+        [0, 1, 1, 1, 0, 1, 1, 0, 1, 0],
+        [0, 1, 0, 0, 0, 1, 0, 0, 0, 0],
+        [0, 0, 0, 1, 1, 1, 0, 1, 1, 0]
+    ]
+
+    // const table4 = [
+    //     [1, 0, 1, 0, 0, 1, 1, 0, 0, 1],
+    //     [0, 1, 0, 1, 1, 0, 0, 1, 1, 0],
+    //     [1, 0, 1, 0, 0, 1, 1, 0, 0, 1],
+    //     [0, 1, 0, 1, 1, 0, 0, 1, 1, 0],
+    //     [1, 0, 1, 0, 0, 1, 1, 0, 0, 1],
+    //     [0, 1, 0, 1, 1, 0, 0, 1, 1, 0],
+    //     [1, 0, 1, 0, 0, 1, 1, 0, 0, 1],
+    //     [0, 1, 0, 1, 1, 0, 0, 1, 1, 0],
+    //     [1, 0, 1, 0, 0, 1, 1, 0, 0, 1],
+    //     [0, 1, 0, 1, 1, 0, 0, 1, 1, 0]
+    // ]
+
+    const mazeArray = table3;
     
     const maze = document.getElementById("maze_container")
-    const mouse = document.getElementById("mouse")
-    const cheese = document.getElementById("cheese")
+    // const mouse = document.getElementById("mouse")
+    // const cheese = document.getElementById("cheese")
 
     for (let rowIndex = 0; rowIndex < mazeArray.length; rowIndex++) {
         let row = document.createElement("div")
