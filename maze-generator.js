@@ -11,6 +11,8 @@ document.addEventListener("DOMContentLoaded", () => {
 function createMaze(file) {
 
   const maze = document.getElementById("maze_container")
+
+  maze.innerHTML = ""
   
   const reader = new FileReader();
 
