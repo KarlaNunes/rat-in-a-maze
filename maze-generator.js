@@ -11,8 +11,6 @@ document.addEventListener("DOMContentLoaded", () => {
 function createBlankMaze(file) {
 
   const maze = document.getElementById("maze_container")
-  // const mouse = document.getElementById("mouse")
-  // const cheese = document.getElementById("cheese")
   
   const reader = new FileReader();
 
@@ -34,9 +32,19 @@ function createBlankMaze(file) {
             let cell = document.createElement("div")
             cell.classList.add("cell")
             
-            if (mazeArray[rowIndex][column] == 1) {
+            if (mazeArray[rowIndex][column] == '1') {
                 cell.classList.add("wall")
             }
+
+            // mouse position
+            if (mazeArray[rowIndex][column] == 'm') {
+              const mouse = document.createElement("img")
+              mouse.setAttribute("src", "./images/mouse.svg")
+              mouse.setAttribute("id", "mouse")
+              mouse.setAttribute("alt", "Mouse")
+              cell.appendChild(mouse)
+            }
+
 
             row.appendChild(cell)
         }
