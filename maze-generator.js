@@ -4,11 +4,11 @@ document.addEventListener("DOMContentLoaded", () => {
   inputUploadFile.addEventListener("change", (event) => {
       const uploadedFile = event.target.files[0];
 
-      createBlankMaze(uploadedFile)
+      createMaze(uploadedFile)
   })
 })
 
-function createBlankMaze(file) {
+function createMaze(file) {
 
   const maze = document.getElementById("maze_container")
   
