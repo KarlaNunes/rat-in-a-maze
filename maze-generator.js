@@ -45,6 +45,15 @@ function createBlankMaze(file) {
               cell.appendChild(mouse)
             }
 
+            // cheese position
+            if (mazeArray[rowIndex][column] == 'e') {
+              const cheese = document.createElement("img")
+              cheese.setAttribute("src", "./images/cheese.svg")
+              cheese.setAttribute("id", "cheese")
+              cheese.setAttribute("alt", "Cheese")
+              cell.appendChild(cheese)
+            }
+
 
             row.appendChild(cell)
         }
