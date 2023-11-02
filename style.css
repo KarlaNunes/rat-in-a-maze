@@ -21,9 +21,8 @@ body {
     border: 1px solid #000;
     width: max-content;
     height: max-content;
-    display: flex;
-    flex-direction: column;
-    position: relative;
+    display: none;
+    
 }
 
 #mouse, #cheese {
@@ -59,4 +58,10 @@ select {
 
 .wall {
     background-color: black;
+}
+
+#maze_container.visible {
+    display: flex;
+    flex-direction: column;
+    position: relative;
 }

@@ -1,60 +1,34 @@
-document.addEventListener("DOMContentLoaded", function() {
-    createBlankMaze();
-});
+document.addEventListener("DOMContentLoaded", () => {
+  const inputUploadFile = document.getElementById("input-upload-file")
 
+  inputUploadFile.addEventListener("change", (event) => {
+      const uploadedFile = event.target.files[0];
 
-function createBlankMaze() {
-    const table1 = [
-        [0,1,0,1],
-        [0,0,0,0],
-        [0,1,0,1],
-        [0,1,0,0],
-    ]
+      createBlankMaze(uploadedFile)
+  })
+})
 
-    const table2 = [
-        [0,0,0,1, 0, 1],
-        [0,1,0,0, 0, 0],
-        [1,1,0,1, 1, 1],
-        [0,1,0,0, 0, 0],
-        [0,1,0,1, 0, 1],
-        [0,0,0,1, 0, 0],
-    ]
+function createBlankMaze(file) {
 
-    const table3 = [
-        [0, 1, 0, 0, 1, 1, 1, 0, 0, 0],
-        [0, 1, 1, 0, 1, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 1, 1, 1, 1, 1, 0],
-        [0, 1, 1, 1, 1, 0, 0, 0, 0, 0],
-        [0, 1, 0, 0, 0, 0, 1, 0, 1, 0],
-        [0, 1, 0, 1, 1, 1, 1, 0, 1, 1],
-        [0, 0, 0, 1, 0, 1, 0, 0, 1, 0],
-        [0, 1, 1, 1, 0, 1, 1, 0, 1, 0],
-        [0, 1, 0, 0, 0, 1, 0, 0, 0, 0],
-        [0, 0, 0, 1, 1, 1, 0, 1, 1, 0]
-    ]
+  const maze = document.getElementById("maze_container")
+  // const mouse = document.getElementById("mouse")
+  // const cheese = document.getElementById("cheese")
+  
+  const reader = new FileReader();
 
-    // const table4 = [
-    //     [1, 0, 1, 0, 0, 1, 1, 0, 0, 1],
-    //     [0, 1, 0, 1, 1, 0, 0, 1, 1, 0],
-    //     [1, 0, 1, 0, 0, 1, 1, 0, 0, 1],
-    //     [0, 1, 0, 1, 1, 0, 0, 1, 1, 0],
-    //     [1, 0, 1, 0, 0, 1, 1, 0, 0, 1],
-    //     [0, 1, 0, 1, 1, 0, 0, 1, 1, 0],
-    //     [1, 0, 1, 0, 0, 1, 1, 0, 0, 1],
-    //     [0, 1, 0, 1, 1, 0, 0, 1, 1, 0],
-    //     [1, 0, 1, 0, 0, 1, 1, 0, 0, 1],
-    //     [0, 1, 0, 1, 1, 0, 0, 1, 1, 0]
-    // ]
-
-    const mazeArray = table3;
+  reader.onload = (event) => {
+    const fileContent = event.target.result
     
-    const maze = document.getElementById("maze_container")
-    // const mouse = document.getElementById("mouse")
-    // const cheese = document.getElementById("cheese")
+    const lines = fileContent.trim().split("\n")
 
+    const matrix = lines.map(line => line.split(''));
+
+    const mazeArray = matrix.map(row => row.map(column => column.split("")))
+    
     for (let rowIndex = 0; rowIndex < mazeArray.length; rowIndex++) {
         let row = document.createElement("div")
         row.classList.add("row")
+
         
         for (let column = 0; column < mazeArray[rowIndex].length; column++) {
             let cell = document.createElement("div")
@@ -69,6 +43,11 @@ function createBlankMaze() {
 
         maze.appendChild(row)
     }
-    
 
+    maze.classList.add("visible")
+
+  }
+  
+
+  reader.readAsText(file)
 }
