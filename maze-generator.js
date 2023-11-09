@@ -1,72 +1,121 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const inputUploadFile = document.getElementById("input-upload-file")
-
-  inputUploadFile.addEventListener("change", (event) => {
-      const uploadedFile = event.target.files[0];
-
-      createMaze(uploadedFile)
-  })
-})
-
-function createMaze(file) {
-
-  const maze = document.getElementById("maze_container")
-
-  maze.innerHTML = ""
-  
-  const reader = new FileReader();
-
-  reader.onload = (event) => {
-    const fileContent = event.target.result
-    
-    const lines = fileContent.trim().split("\n")
-
-    const matrix = lines.map(line => line.split(''));
-
-    const mazeArray = matrix.map(row => row.map(column => column.split("")))
-    
-    for (let rowIndex = 0; rowIndex < mazeArray.length; rowIndex++) {
-        let row = document.createElement("div")
-        row.classList.add("row")
-
-        
-        for (let column = 0; column < mazeArray[rowIndex].length; column++) {
-            let cell = document.createElement("div")
-            cell.classList.add("cell")
-            
-            if (mazeArray[rowIndex][column] == '1') {
-                cell.classList.add("wall")
+var mazeArray = [];
+document.addEventListener("DOMContentLoaded", function () {
+    var inputUploadFile = document.getElementById("input-upload-file");
+    inputUploadFile.addEventListener("change", function (event) {
+        var inputElement = event.target;
+        var uploadedFile = inputElement.files[0];
+        createMaze(uploadedFile);
+    });
+    document.addEventListener("keydown", function (event) {
+        var mouse = document.getElementById("mouse");
+        var cheese = document.getElementById("cheese");
+        var mouseDistanceToLeftBorder = mouse.offsetLeft;
+        var mouseDistanceToTopBorder = mouse.offsetTop;
+        var cheeseDistanceToLeftBorder = cheese.offsetLeft;
+        var cheeseDistanceToTopBorder = cheese.offsetTop;
+        var _a = getMousePosition(), currentMousePositionRow = _a[0], currentMousePositionColumn = _a[1];
+        var cellSize = 50;
+        var mazeSize = (mazeArray.length - 1) * cellSize;
+        if (event.key == "ArrowRight" && mouseDistanceToLeftBorder < mazeSize) {
+            var nextColumn = currentMousePositionColumn + 1;
+            var nextCellIsAValidPath = mazeArray[currentMousePositionRow][nextColumn] == '0';
+            if (nextColumn < mazeArray.length && nextCellIsAValidPath) {
+                mouseDistanceToLeftBorder += cellSize;
+                mouse.style.left = mouseDistanceToLeftBorder + "px";
+                // removing mouse from previous position and setting blank cell
+                mazeArray[currentMousePositionRow][currentMousePositionColumn] = '0';
+                mazeArray[currentMousePositionRow][currentMousePositionColumn + 1] = 'm';
             }
-
-            // mouse position
-            if (mazeArray[rowIndex][column] == 'm') {
-              const mouse = document.createElement("img")
-              mouse.setAttribute("src", "./images/mouse.svg")
-              mouse.setAttribute("id", "mouse")
-              mouse.setAttribute("alt", "Mouse")
-              cell.appendChild(mouse)
-            }
-
-            // cheese position
-            if (mazeArray[rowIndex][column] == 'e') {
-              const cheese = document.createElement("img")
-              cheese.setAttribute("src", "./images/cheese.svg")
-              cheese.setAttribute("id", "cheese")
-              cheese.setAttribute("alt", "Cheese")
-              cell.appendChild(cheese)
-            }
-
-
-            row.appendChild(cell)
         }
-
-        maze.appendChild(row)
+        // mouseDistanceToLeftBorder > 5 -> o rato tem uma distância de 5px com a borda da célula
+        if (event.key == "ArrowLeft" && mouseDistanceToLeftBorder > 5) {
+            var nextColumn = currentMousePositionColumn - 1;
+            var nextCellIsAValidPath = mazeArray[currentMousePositionRow][nextColumn] == '0';
+            if (nextColumn >= 0 && nextCellIsAValidPath) {
+                mouseDistanceToLeftBorder -= cellSize;
+                mouse.style.left = mouseDistanceToLeftBorder + "px";
+                // removing mouse from previous position and setting blank cell
+                mazeArray[currentMousePositionRow][currentMousePositionColumn] = '0';
+                mazeArray[currentMousePositionRow][currentMousePositionColumn - 1] = 'm';
+            }
+        }
+        if (event.key == "ArrowUp" && mouseDistanceToTopBorder > 5) {
+            var nextRow = currentMousePositionRow - 1;
+            var nextCellIsAValidPath = mazeArray[nextRow][currentMousePositionColumn] == '0';
+            if (nextRow >= 0 && nextCellIsAValidPath) {
+                mouseDistanceToTopBorder -= cellSize;
+                mouse.style.top = mouseDistanceToTopBorder + "px";
+                // removing mouse from previous position and setting blank cell
+                mazeArray[currentMousePositionRow][currentMousePositionColumn] = '0';
+                mazeArray[currentMousePositionRow - 1][currentMousePositionColumn] = 'm';
+            }
+        }
+        if (event.key == "ArrowDown") {
+            var nextRow = currentMousePositionRow + 1;
+            var nextCellIsAValidPath = mazeArray[nextRow][currentMousePositionColumn] == '0';
+            if (nextRow < mazeArray.length && nextCellIsAValidPath) {
+                mouseDistanceToTopBorder += cellSize;
+                mouse.style.top = mouseDistanceToTopBorder + "px";
+                // removing mouse from previous position and setting blank cell
+                mazeArray[currentMousePositionRow][currentMousePositionColumn] = '0';
+                mazeArray[currentMousePositionRow + 1][currentMousePositionColumn] = 'm';
+            }
+        }
+    });
+});
+function createMaze(file) {
+    var maze = document.getElementById("maze_container");
+    maze.innerHTML = "";
+    var reader = new FileReader();
+    reader.onload = function (event) {
+        var fileContent = event.target.result;
+        if (typeof fileContent === 'string') {
+            var lines = fileContent.trim().split("\n");
+            var matrix = lines.map(function (line) { return line.split(''); });
+            mazeArray = lines.map(function (line) { return line.replace(/\r/g, '').split(''); });
+            for (var rowIndex = 0; rowIndex < mazeArray.length; rowIndex++) {
+                var row = document.createElement("div");
+                row.classList.add("row");
+                for (var column = 0; column < mazeArray[rowIndex].length; column++) {
+                    var cell = document.createElement("div");
+                    cell.classList.add("cell");
+                    if (mazeArray[rowIndex][column] == '1') {
+                        cell.classList.add("wall");
+                    }
+                    // mouse position
+                    if (mazeArray[rowIndex][column] == 'm') {
+                        var mouse = document.createElement("img");
+                        mouse.setAttribute("src", "./images/mouse.svg");
+                        mouse.setAttribute("id", "mouse");
+                        mouse.setAttribute("alt", "Mouse");
+                        cell.appendChild(mouse);
+                    }
+                    // cheese position
+                    if (mazeArray[rowIndex][column] == 'e') {
+                        var cheese = document.createElement("img");
+                        cheese.setAttribute("src", "./images/cheese.svg");
+                        cheese.setAttribute("id", "cheese");
+                        cheese.setAttribute("alt", "Cheese");
+                        cell.appendChild(cheese);
+                    }
+                    row.appendChild(cell);
+                }
+                maze.appendChild(row);
+            }
+            maze.classList.add("visible");
+        }
+    };
+    reader.readAsText(file);
+}
+function getMousePosition() {
+    var mousePosition = [-1, -1];
+    for (var rowIndex = 0; rowIndex < mazeArray.length; rowIndex++) {
+        for (var column = 0; column < mazeArray[rowIndex].length; column++) {
+            if (mazeArray[rowIndex][column] == 'm') {
+                mousePosition[0] = rowIndex;
+                mousePosition[1] = column;
+            }
+        }
     }
-
-    maze.classList.add("visible")
-
-  }
-  
-
-  reader.readAsText(file)
+    return [mousePosition[0], mousePosition[1]];
 }
