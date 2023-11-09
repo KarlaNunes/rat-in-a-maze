@@ -31,6 +31,10 @@ body {
     position: absolute;
 }
 
+#mouse {
+    z-index: 1; /* mouse must be above the cheese */
+}
+
 select {
     margin-bottom: 20px;
 }
