@@ -11,15 +11,14 @@ document.addEventListener("DOMContentLoaded", function () {
         var cheese = document.getElementById("cheese");
         var mouseDistanceToLeftBorder = mouse.offsetLeft;
         var mouseDistanceToTopBorder = mouse.offsetTop;
-        var cheeseDistanceToLeftBorder = cheese.offsetLeft;
-        var cheeseDistanceToTopBorder = cheese.offsetTop;
         var _a = getMousePosition(), currentMousePositionRow = _a[0], currentMousePositionColumn = _a[1];
         var cellSize = 50;
         var mazeSize = (mazeArray.length - 1) * cellSize;
         if (event.key == "ArrowRight" && mouseDistanceToLeftBorder < mazeSize) {
             var nextColumn = currentMousePositionColumn + 1;
             var nextCellIsAValidPath = mazeArray[currentMousePositionRow][nextColumn] == '0';
-            if (nextColumn < mazeArray.length && nextCellIsAValidPath) {
+            var nextCellHasCheese = mazeArray[currentMousePositionRow][nextColumn] == 'e';
+            if (nextColumn < mazeArray.length && (nextCellIsAValidPath || nextCellHasCheese)) {
                 mouseDistanceToLeftBorder += cellSize;
                 mouse.style.left = mouseDistanceToLeftBorder + "px";
                 // removing mouse from previous position and setting blank cell
@@ -31,7 +30,8 @@ document.addEventListener("DOMContentLoaded", function () {
         if (event.key == "ArrowLeft" && mouseDistanceToLeftBorder > 5) {
             var nextColumn = currentMousePositionColumn - 1;
             var nextCellIsAValidPath = mazeArray[currentMousePositionRow][nextColumn] == '0';
-            if (nextColumn >= 0 && nextCellIsAValidPath) {
+            var nextCellHasCheese = mazeArray[currentMousePositionRow][nextColumn] == 'e';
+            if (nextColumn >= 0 && (nextCellIsAValidPath || nextCellHasCheese)) {
                 mouseDistanceToLeftBorder -= cellSize;
                 mouse.style.left = mouseDistanceToLeftBorder + "px";
                 // removing mouse from previous position and setting blank cell
@@ -42,7 +42,8 @@ document.addEventListener("DOMContentLoaded", function () {
         if (event.key == "ArrowUp" && mouseDistanceToTopBorder > 5) {
             var nextRow = currentMousePositionRow - 1;
             var nextCellIsAValidPath = mazeArray[nextRow][currentMousePositionColumn] == '0';
-            if (nextRow >= 0 && nextCellIsAValidPath) {
+            var nextCellHasCheese = mazeArray[nextRow][currentMousePositionColumn] == 'e';
+            if (nextRow >= 0 && (nextCellIsAValidPath || nextCellHasCheese)) {
                 mouseDistanceToTopBorder -= cellSize;
                 mouse.style.top = mouseDistanceToTopBorder + "px";
                 // removing mouse from previous position and setting blank cell
@@ -53,7 +54,8 @@ document.addEventListener("DOMContentLoaded", function () {
         if (event.key == "ArrowDown") {
             var nextRow = currentMousePositionRow + 1;
             var nextCellIsAValidPath = mazeArray[nextRow][currentMousePositionColumn] == '0';
-            if (nextRow < mazeArray.length && nextCellIsAValidPath) {
+            var nextCellHasCheese = mazeArray[nextRow][currentMousePositionColumn] == 'e';
+            if (nextRow < mazeArray.length && (nextCellIsAValidPath || nextCellHasCheese)) {
                 mouseDistanceToTopBorder += cellSize;
                 mouse.style.top = mouseDistanceToTopBorder + "px";
                 // removing mouse from previous position and setting blank cell

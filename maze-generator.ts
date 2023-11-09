@@ -19,8 +19,6 @@ document.addEventListener("DOMContentLoaded", () => {
     let mouseDistanceToLeftBorder = mouse.offsetLeft
     let mouseDistanceToTopBorder = mouse.offsetTop
     
-    let cheeseDistanceToLeftBorder = cheese.offsetLeft
-    let cheeseDistanceToTopBorder = cheese.offsetTop
   
     let [currentMousePositionRow, currentMousePositionColumn] = getMousePosition()
 
@@ -34,8 +32,9 @@ document.addEventListener("DOMContentLoaded", () => {
       const nextColumn = currentMousePositionColumn + 1
 
       const nextCellIsAValidPath = mazeArray[currentMousePositionRow][nextColumn] == '0'
+      const nextCellHasCheese = mazeArray[currentMousePositionRow][nextColumn] == 'e'
 
-      if (nextColumn < mazeArray.length && nextCellIsAValidPath) {
+      if (nextColumn < mazeArray.length && (nextCellIsAValidPath || nextCellHasCheese)) {
         mouseDistanceToLeftBorder += cellSize
         mouse.style.left = mouseDistanceToLeftBorder + "px";
         
@@ -51,8 +50,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const nextColumn = currentMousePositionColumn - 1
       const nextCellIsAValidPath = mazeArray[currentMousePositionRow][nextColumn] == '0'
+      const nextCellHasCheese = mazeArray[currentMousePositionRow][nextColumn] == 'e'
 
-      if (nextColumn >= 0 && nextCellIsAValidPath) {
+      if (nextColumn >= 0 && (nextCellIsAValidPath || nextCellHasCheese)) {
         mouseDistanceToLeftBorder -= cellSize
         mouse.style.left = mouseDistanceToLeftBorder + "px";
   
@@ -66,8 +66,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const nextRow = currentMousePositionRow - 1 
       const nextCellIsAValidPath = mazeArray[nextRow][currentMousePositionColumn] == '0' 
+      const nextCellHasCheese = mazeArray[nextRow][currentMousePositionColumn] == 'e'
 
-      if (nextRow >= 0 && nextCellIsAValidPath) {
+      if (nextRow >= 0 && (nextCellIsAValidPath || nextCellHasCheese)) {
         mouseDistanceToTopBorder -= cellSize
         mouse.style.top = mouseDistanceToTopBorder + "px";
         
@@ -81,8 +82,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const nextRow = currentMousePositionRow + 1
       const nextCellIsAValidPath = mazeArray[nextRow][currentMousePositionColumn] == '0' 
+      const nextCellHasCheese = mazeArray[nextRow][currentMousePositionColumn] == 'e'
 
-      if (nextRow < mazeArray.length && nextCellIsAValidPath) {
+      if (nextRow < mazeArray.length && (nextCellIsAValidPath || nextCellHasCheese)) {
         mouseDistanceToTopBorder += cellSize
         mouse.style.top = mouseDistanceToTopBorder + "px";
         
