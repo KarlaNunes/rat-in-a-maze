@@ -1,4 +1,4 @@
-import { handleKeyPress } from "./handle-key-press"
+import { backTracking } from "./back-tracking"
 import { handleFileUpload } from "./handle.file-upload"
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   inputUploadFile.addEventListener("change", handleFileUpload)
 
-  document.addEventListener("keydown", handleKeyPress)
+  document.addEventListener("keydown", backTracking)
 })
 
 export let mazeArray: string[][] = []
