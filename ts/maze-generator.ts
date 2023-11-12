@@ -1,4 +1,4 @@
-let mazeArray = []
+let mazeArray: string[][] = []
 
 document.addEventListener("DOMContentLoaded", () => {
   const inputUploadFile = document.getElementById("input-upload-file")
@@ -94,7 +94,7 @@ document.addEventListener("DOMContentLoaded", () => {
   })
 })
 
-function createMaze(file) {
+function createMaze(file: File) {
 
   const maze = document.getElementById("maze_container")
 
@@ -108,46 +108,46 @@ function createMaze(file) {
     if (typeof fileContent === 'string') {
       const lines = fileContent.trim().split("\n");
       
-    mazeArray = lines.map(line => line.replace(/\r/g, '').split(''));
+      mazeArray = lines.map(line => line.replace(/\r/g, '').split(''));
     
-    for (let rowIndex = 0; rowIndex < mazeArray.length; rowIndex++) {
-        let row = document.createElement("div")
-        row.classList.add("row")
+      for (let rowIndex = 0; rowIndex < mazeArray.length; rowIndex++) {
+          let row = document.createElement("div")
+          row.classList.add("row")
 
-        for (let column = 0; column < mazeArray[rowIndex].length; column++) {
-            let cell = document.createElement("div")
-            cell.classList.add("cell")
-            
-            if (mazeArray[rowIndex][column] == '1') {
-                cell.classList.add("wall")
-            }
+          for (let column = 0; column < mazeArray[rowIndex].length; column++) {
+              let cell = document.createElement("div")
+              cell.classList.add("cell")
+              
+              if (mazeArray[rowIndex][column] == '1') {
+                  cell.classList.add("wall")
+              }
 
-            // mouse position
-            if (mazeArray[rowIndex][column] == 'm') {
-              const mouse = document.createElement("img")
-              mouse.setAttribute("src", "./images/mouse.svg")
-              mouse.setAttribute("id", "mouse")
-              mouse.setAttribute("alt", "Mouse")
-              cell.appendChild(mouse)
-            }
+              // mouse position
+              if (mazeArray[rowIndex][column] == 'm') {
+                const mouse = document.createElement("img")
+                mouse.setAttribute("src", "./images/mouse.svg")
+                mouse.setAttribute("id", "mouse")
+                mouse.setAttribute("alt", "Mouse")
+                cell.appendChild(mouse)
+              }
 
-            // cheese position
-            if (mazeArray[rowIndex][column] == 'e') {
-              const cheese = document.createElement("img")
-              cheese.setAttribute("src", "./images/cheese.svg")
-              cheese.setAttribute("id", "cheese")
-              cheese.setAttribute("alt", "Cheese")
-              cell.appendChild(cheese)
-            }
+              // cheese position
+              if (mazeArray[rowIndex][column] == 'e') {
+                const cheese = document.createElement("img")
+                cheese.setAttribute("src", "./images/cheese.svg")
+                cheese.setAttribute("id", "cheese")
+                cheese.setAttribute("alt", "Cheese")
+                cell.appendChild(cheese)
+              }
 
 
-            row.appendChild(cell)
-        }
+              row.appendChild(cell)
+          }
 
-        maze.appendChild(row)
-    }
+          maze.appendChild(row)
+      }
 
-    maze.classList.add("visible")
+      maze.classList.add("visible")
 
     }
   }
