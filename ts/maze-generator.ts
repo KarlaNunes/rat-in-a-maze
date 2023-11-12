@@ -3,13 +3,7 @@ let mazeArray: string[][] = []
 document.addEventListener("DOMContentLoaded", () => {
   const inputUploadFile = document.getElementById("input-upload-file")
 
-  inputUploadFile.addEventListener("change", (event) => {
-    const inputElement = event.target as HTMLInputElement
-
-      const uploadedFile = inputElement.files[0];
-
-      createMaze(uploadedFile)
-  })
+  inputUploadFile.addEventListener("change", handleFileUpload)
 
 
   document.addEventListener("keydown", (event) => {
@@ -93,6 +87,14 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   })
 })
+
+function handleFileUpload(event: Event) {
+  const inputElement = event.target as HTMLInputElement
+
+  const uploadedFile = inputElement.files[0];
+
+  createMaze(uploadedFile)
+}
 
 function createMaze(file: File) {
 
