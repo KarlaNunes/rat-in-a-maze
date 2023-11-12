@@ -13,9 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   document.addEventListener("keydown", (event) => {
-    let mouse = document.getElementById("mouse")
-    let cheese = document.getElementById("cheese")
-  
+    let mouse = document.getElementById("mouse")  
     let mouseDistanceToLeftBorder = mouse.offsetLeft
     let mouseDistanceToTopBorder = mouse.offsetTop
     
@@ -110,8 +108,6 @@ function createMaze(file) {
     if (typeof fileContent === 'string') {
       const lines = fileContent.trim().split("\n");
       
-      const matrix = lines.map(line => line.split(''));
-
     mazeArray = lines.map(line => line.replace(/\r/g, '').split(''));
     
     for (let rowIndex = 0; rowIndex < mazeArray.length; rowIndex++) {
