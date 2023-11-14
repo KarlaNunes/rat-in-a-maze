@@ -27,6 +27,11 @@ export function backTracking(): boolean {
 
             if (isValidMove(newX, newY)) {
                 stack.push([newX, newY]);
+                mazeArray[currentPosition.data[0]][currentPosition.data[1]] = '0'
+                mazeArray[newX][newY] = 'm'
+                console.log("--------------------")
+                console.log("movendooooo")
+                console.log(mazeArray)
                 moved = true;
                 break;
             }
@@ -47,6 +52,6 @@ function isValidMove(x: number, y: number) {
         x < mazeArray.length &&
         y >= 0 &&
         y < mazeArray[0].length &&
-        mazeArray[x][y] !== '0'
+        (mazeArray[x][y] === '0' || mazeArray[x][y] === 'e') 
     );
-}
+} 
