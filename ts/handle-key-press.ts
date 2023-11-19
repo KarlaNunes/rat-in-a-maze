@@ -1,5 +1,5 @@
 import { mazeArray } from "."
-import { getMousePosition } from "./get-mouse-positon"
+import { getMousePosition } from "./get-mouse-position"
 
 export function handleKeyPress(event: KeyboardEvent) {
     let mouse = document.getElementById("mouse")  

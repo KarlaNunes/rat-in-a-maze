@@ -36,5 +36,21 @@ export class Stack<T> {
     getSize(): number {
       return this.size;
     }
+
+    foundElementInStack(element: T): boolean {
+      let index = 0;
+      let currentNode = this.top
+
+      while (currentNode !== null) {
+        if (currentNode.data === element) {
+          return true
+        }
+
+        currentNode = currentNode.next
+        index++
+      }
+
+      return false
+    }
   }
   
