@@ -1,37 +1,43 @@
-import { mazeArray } from ".";
-import { getMousePosition } from "./get-mouse-positon";
+// import { mazeArray } from ".";
+import { getMousePosition } from "./get-mouse-position";
 import { Stack } from "./stack";
 
-export function backTracking(): boolean {
+export function backTracking(mazeArray: string[][]) {
     const stack = new Stack<number[]>();
-    const start = getMousePosition()
+    const start = getMousePosition();
 
     stack.push(start);
 
+    let foundExit = false
 
-    while (!stack.isEmpty()) {
+    while (!foundExit) {
         const currentPosition = stack.top
 
         if (mazeArray[currentPosition.data[0]][currentPosition.data[1]] === 'e') {
-            console.log("Found the exit!");
-            return true;
+            foundExit = true
+            break
         }
 
         // Right, Left, Down, Up
         const moves = [ [0, 1], [0, -1], [1, 0], [-1, 0] ];
 
         let moved = false;
+        
         for (const move of moves) {
             const newX = currentPosition.data[0] + move[0]; // ex: 0 + 0
             const newY = currentPosition.data[1] + move[1];
 
-            if (isValidMove(newX, newY)) {
+            if (isValidMove(newX, newY, mazeArray)) {
+                if (mazeArray[newX][newY] === 'e') {
+                    foundExit = true;
+                    console.log("Found the cheese!")
+                    console.log("Position: ", newX, ",", newY)
+                    break
+                }
+
                 stack.push([newX, newY]);
-                mazeArray[currentPosition.data[0]][currentPosition.data[1]] = '0'
+                mazeArray[currentPosition.data[0]][currentPosition.data[1]] = '2'
                 mazeArray[newX][newY] = 'm'
-                console.log("--------------------")
-                console.log("movendooooo")
-                console.log(mazeArray)
                 moved = true;
                 break;
             }
@@ -42,11 +48,14 @@ export function backTracking(): boolean {
         }
     }
 
-    console.log("No exit found.");
-    return false;
+    if (!foundExit) {
+        console.log("No exit found.");
+    }
+
+    return foundExit;
 }
 
-function isValidMove(x: number, y: number) {
+function isValidMove(x: number, y: number, mazeArray: string[][]) {
     return (
         x >= 0 &&
         x < mazeArray.length &&

@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   inputUploadFile.addEventListener("change", handleFileUpload)
 
-  document.addEventListener("keydown", backTracking)
+  document.addEventListener("keydown", () => backTracking(mazeArray))
 })
 
 export let mazeArray: string[][] = []
